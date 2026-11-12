@@ -19,7 +19,7 @@ The public GitHub repository tracks source on `main`. Publishing the zip is a se
   substitute it when the user says "test build." V0.5 through V0.5.2 were tagged `-beta` by
   mistake and had to be renamed after they had already shipped.
 - Tag name is always `V<version>` (capital V), matching the ff1-screen-reader convention.
-- Branch is `master` (not `main`).
+- Build and tag from `main`.
 - **A test build uses this exact same procedure as a stable release** — same build, same
   packaging, same tag form. There is no separate pre-release flow; the `-test-build` suffix
   is the only difference.
@@ -45,13 +45,20 @@ The public GitHub repository tracks source on `main`. Publishing the zip is a se
 
 ## Steps
 
+Run the build commands from the repository root. Set the runner path for your development
+machine. The local path is shown here.
+
+```
+$runner = 'D:\Games\Dev\codex\templates\accessibility-mod\scripts\run-build.py'
+```
+
 ### 0. (One-time / only if missing) Build the native addon
 
 Only needed the first time, or after `native\bma_tts\*.cc` or `binding.gyp` changes. If
 `bma_tts.node` is already present, skip this.
 
 ```
-powershell.exe -Command "& 'D:\Games\Dev\BlackmoonProphecy\native\build.bat'"
+python $runner -- cmd.exe /d /c .\native\build.bat
 ```
 
 `native\build.bat` documents the `nw-gyp` path; the working route on this machine is
@@ -64,7 +71,7 @@ release missing the addon without the user's OK.
 `ReadMe.md` (repo root) is the **only readme that is ever committed**. `build.ps1`
 regenerates the shipped plain-text copy into `obj\ReadMe.txt` on every build, via
 `tools\readme-to-txt.ps1`, and ships it from there. That file is build output — it is
-gitignored, never checked in, and never hand-edited, so it cannot drift from the master.
+regenerated from the current source on every build.
 
 So this step is just: make sure `ReadMe.md` itself is current. In particular the Install
 section, which covers both the setup program and the manual route including the exact
@@ -77,7 +84,7 @@ is precisely what broke the V0.5 installer.
 ### 2. Build a fresh patch
 
 ```
-powershell.exe -File "D:\Games\Dev\BlackmoonProphecy\build.ps1" -Version <version>
+python $runner -- powershell.exe -NoProfile -File .\build.ps1 -Version <version>
 ```
 
 Pass `-Version` exactly as it appears in the tag but without the leading `V` (e.g. `0.6`,
@@ -207,7 +214,7 @@ with nothing else on the line, so the user can triple-click to select and copy i
 handing off to testers:
 
 ```
-D:\Games\Dev\BlackmoonProphecy\Releases\BlackmoonProphecy-Accessibility-V<version>.zip
+(Resolve-Path -LiteralPath 'Releases\BlackmoonProphecy-Accessibility-V<version>.zip').Path
 ```
 
 Then report, in prose, that this zip is the one to distribute and that `release-notes-V<version>.txt`
