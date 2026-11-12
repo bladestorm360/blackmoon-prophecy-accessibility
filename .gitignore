@@ -1,0 +1,33 @@
+# Native build intermediates and local redistributables
+native/bma_tts/build/
+native/bma_tts/test_load.js
+redist/*.dll
+node_modules/
+*.log
+*.tmp
+
+# Release build output — the versioned dirs and .zip are hand-off artifacts, not source.
+Releases/
+
+# Installer compile intermediates (generated BuildInfo.cs, csc response file) and the
+# plain-text ReadMe.txt generated from ReadMe.md. ReadMe.md is the only readme committed;
+# the .txt is build output that ships with releases only.
+obj/
+docs/README.txt
+
+# Build output and local development notes.
+/dist/
+/AGENTS.md
+/CLAUDE.md
+/CODEX_MEMORY.md
+
+# Per-release changelogs (release_procedure.md step 6). They are written for the people
+# receiving the zip, not for this repo, and they are regenerated per release -- so they are
+# local-only by rule rather than by habit. Covers the release-notes-V<version>.txt naming the
+# procedure uses, and the bare ReleaseNotes.txt spelling, in either case.
+release-notes-*.txt
+Release-Notes-*.txt
+ReleaseNotes.txt
+releasenotes.txt
+RELEASE_NOTES.txt
+release_notes*.txt

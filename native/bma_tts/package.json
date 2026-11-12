@@ -1,0 +1,7 @@
+{
+  "name": "bma_tts",
+  "version": "1.0.0",
+  "description": "In-process Tolk caller (N-API addon) for the Blackmoon Prophecy accessibility mod",
+  "private": true,
+  "gypfile": true
+}
