@@ -21,8 +21,7 @@ const argv = process.argv.slice(2);
 const DRY = argv.includes('--dry-run') || argv.includes('-n');
 const gameArg = argv.indexOf('--game');
 
-const GAME = (gameArg >= 0 && argv[gameArg + 1]) || process.env.BMA_GAME_DIR ||
-  'D:\\Games\\Blackmoon Prophecy Remake 1.05S\\Final Fantasy Blackmoon Prophecy Remake';
+const GAME = (gameArg >= 0 && argv[gameArg + 1]) || require('./game-dir');
 
 const SAVE = path.join(GAME, 'www', 'save');
 const DATA = path.join(GAME, 'www', 'data');

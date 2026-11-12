@@ -49,7 +49,7 @@ Run the build commands from the repository root. Set the runner path for your de
 machine. The local path is shown here.
 
 ```
-$runner = 'D:\Games\Dev\codex\templates\accessibility-mod\scripts\run-build.py'
+$runner = 'C:\Games\Dev\codex\templates\accessibility-mod\scripts\run-build.py'
 ```
 
 ### 0. (One-time / only if missing) Build the native addon

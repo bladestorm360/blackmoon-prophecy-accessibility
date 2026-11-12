@@ -13,10 +13,7 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const SRC  = path.join(ROOT, 'src');
 
-// Override with BMA_GAME_DIR when the game is installed elsewhere. It must point at the folder
-// holding Game.exe / package.json / www — note the doubly-nested default below is correct.
-const GAME = process.env.BMA_GAME_DIR ||
-  'D:\\Games\\Blackmoon Prophecy Remake 1.05S\\Final Fantasy Blackmoon Prophecy Remake';
+const GAME = require('../tools/game-dir');
 const DATA = path.join(GAME, 'www', 'data');
 const MOD  = path.join(GAME, 'www', 'mod');
 

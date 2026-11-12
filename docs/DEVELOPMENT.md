@@ -75,7 +75,7 @@ are main-thread only. What the JS side does instead:
   render graph grows for as long as the player walks.
 - Turn on **Perf logging** in the F8 menu to get per-bucket timings in `www\mod\bma_log.txt`.
 
-## Testing without the game
+## Offline tests
 
 ```
 node tests/run.js              # every test, one line each
@@ -83,15 +83,16 @@ node tests/run.js -v           # stream each test's own output
 node tests/run.js shop         # just that one
 ```
 
-Exit code is 0 only if all passed. A test that cannot find the installed game exits **2** and
-is reported as *skipped*, not failed, so the suite stays runnable on a machine with the repo but
-no game.
+A test that cannot find the installed game exits **2** and the suite reports it as *skipped*.
+Check the pass and skip counts when verifying against the installed game.
 
 The tests load `src/*.js` under stubbed MV globals, so they test the shipping code rather
 than a copy. Most also read the installed game's data files, because the mod's behaviour is
 driven by this game's real configuration (ICFSoft's status columns, YEP's equip slots, the shop
-plugins) and hardcoding a guess at those would test a fiction. Set **`BMA_GAME_DIR`** if the
-game is not at the default path in `tests/_paths.js`.
+plugins) and hardcoding a guess at those would test a fiction. The tests and save-index tool
+share the default game directory in [`tools/game-dir.js`](../tools/game-dir.js). Set
+**`BMA_GAME_DIR`** to the directory containing `Game.exe` and `www` to use another install.
+The save-index tool also accepts `--game <dir>`, which takes precedence.
 
 **These lived in a session scratchpad until they were moved here, and two of them had rotted
 silently in the meantime** — see the notes below. That is the argument for keeping them tracked:
